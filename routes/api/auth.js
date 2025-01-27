@@ -93,4 +93,15 @@ router.post('/register', (req, res) => {
   });
 });
 
+// 아이디 중복 확인
+router.get('/check-id', (req, res) => {
+  const { id } = req.query;
+  const isUserExist = Users.some((user) => user.id === id);
+  const message = isUserExist
+    ? '이미 존재하는 아이디입니다.'
+    : '사용 가능한 아이디입니다.';
+
+  res.json({ isSuccess: true, message, data: { isUserExist } });
+});
+
 export default router;
