@@ -1,23 +1,20 @@
 import express from 'express';
-import _ from 'lodash';
 import { Posts } from '../../data/posts.js';
 import { Users } from '../../data/users.js';
 import { auth } from '../../middlewares/auth.js';
 import {
   createNewPost,
-  filterPost,
   getPageResult,
   makePost,
-  sortPosts,
+  organizePosts,
 } from '../../utils/post.js';
 
 const router = express.Router();
 
 // 게시글 전체 조회
 router.get('/', auth, (req, res) => {
-  const filteredPosts = filterPost(_.cloneDeep(Posts));
-  const sortedPosts = sortPosts(filteredPosts);
-  const { posts, pagination, error } = getPageResult(sortedPosts, req.query);
+  const targetPosts = organizePosts(Posts);
+  const { posts, pagination, error } = getPageResult(targetPosts, req.query);
   const isSuccess = !error;
 
   res.json({
@@ -33,10 +30,8 @@ router.get('/', auth, (req, res) => {
 // 내 게시글 조회
 router.get('/my', auth, (req, res) => {
   const loginUserId = req.loginUserId;
-  const filteredPosts = filterPost(_.cloneDeep(Posts));
-  const sortedPosts = sortPosts(filteredPosts);
-  const myPosts = sortedPosts.filter((post) => post.userId === loginUserId);
-  const { posts, pagination, error } = getPageResult(myPosts, req.query);
+  const targetPosts = organizePosts(Posts, loginUserId);
+  const { posts, pagination, error } = getPageResult(targetPosts, req.query);
   const isSuccess = !error;
 
   res.json({
@@ -118,7 +113,7 @@ router.post('/:postId/reply', auth, (req, res) => {
     title,
     content,
     userId: loginUserId,
-    postId,
+    parentId: postId,
   });
   Posts.push(newReply);
 

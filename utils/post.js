@@ -1,10 +1,34 @@
-import { Posts } from '../data/posts.js';
 import { Users } from '../data/users.js';
 import { generateRandomId } from './common.js';
 import _ from 'lodash';
 
 const POST_TYPES = ['title', 'content', 'title_content', 'user'];
 
+// 게시글에 Reply를 해당 게시글 아래에 포함하여 순서대로 정렬하여 반환
+export const organizePosts = (posts, ownerId = null) => {
+  const clonedPosts = _.cloneDeep(posts);
+  const filteredPosts = filterPost(clonedPosts);
+  const sortedPosts = sortPosts(filteredPosts);
+  let organizedPosts = [];
+
+  sortedPosts.forEach((post) => {
+    const replies = post.replies.map((replyId) => {
+      const reply = clonedPosts.find((post) => post.id === replyId);
+      return reply;
+    });
+
+    organizedPosts = [...organizedPosts, post, ...replies];
+  });
+
+  // ownerId가 있으면 ownerId로 필터링
+  const targetPosts = organizedPosts.filter((post) =>
+    ownerId ? post.userId === ownerId : true
+  );
+
+  return targetPosts;
+};
+
+// 게시물을 페이징 처리하여 반환
 export const getPageResult = (items, query) => {
   // type: title, content, title_content, user
   const { type = 'title', keyword, page = 1, size = 10 } = query;
@@ -81,7 +105,6 @@ export const checkValidPage = (items, query) => {
 };
 
 export const makePost = (post) => {
-  post = populateReply(post);
   return populateUser(post);
 };
 
@@ -103,24 +126,12 @@ export const populateUser = (item) => {
   return { ...item, user };
 };
 
-export const populateReply = (item) => {
-  item = _.cloneDeep(item);
-
-  const replies = item.replies.map((replyId) => {
-    const post = Posts.find((post) => post.id === replyId);
-    return populateUser(post);
-  });
-  item.replies = sortByDate(replies, true);
-
-  return item;
-};
-
 export const createNewPost = ({
   type = 'post',
   title = '',
   content = '',
   userId,
-  postId = null,
+  parentId = null,
 }) => {
   return {
     id: generateRandomId(),
@@ -128,7 +139,7 @@ export const createNewPost = ({
     title,
     content,
     userId,
-    postId,
+    parentId,
     likes: [],
     dislikes: [],
     replies: [],
