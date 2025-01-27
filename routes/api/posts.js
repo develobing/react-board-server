@@ -13,8 +13,8 @@ const router = express.Router();
 
 // 게시글 전체 조회
 router.get('/', auth, (req, res) => {
-  const targetPosts = organizePosts(Posts);
-  const { posts, pagination, error } = getPageResult(targetPosts, req.query);
+  const organizedPosts = organizePosts(Posts);
+  const { posts, pagination, error } = getPageResult(organizedPosts, req.query);
   const isSuccess = !error;
 
   res.json({
@@ -30,8 +30,8 @@ router.get('/', auth, (req, res) => {
 // 내 게시글 조회
 router.get('/my', auth, (req, res) => {
   const loginUserId = req.loginUserId;
-  const targetPosts = organizePosts(Posts, loginUserId);
-  const { posts, pagination, error } = getPageResult(targetPosts, req.query);
+  const organizedPosts = organizePosts(Posts, loginUserId);
+  const { posts, pagination, error } = getPageResult(organizedPosts, req.query);
   const isSuccess = !error;
 
   res.json({
@@ -47,9 +47,11 @@ router.get('/my', auth, (req, res) => {
 // 게시글 상세 조회
 router.get('/:id', auth, (req, res) => {
   const { id } = req.params;
-  const post = Posts.find((post) => post.id === id);
-  const isPostExist = post ? true : false;
+  const organizedPosts = organizePosts(Posts);
+  const postIdx = organizedPosts.findIndex((post) => post.id === id);
 
+  // 게시글 존재여부 확인
+  const isPostExist = postIdx !== -1;
   if (!isPostExist) {
     res.status(404).json({
       isSuccess: false,
@@ -58,10 +60,18 @@ router.get('/:id', auth, (req, res) => {
     return;
   }
 
+  // 답글인 경우, 부모글 포함해 return
+  const post = makePost(organizedPosts[postIdx]);
+  const prev = postIdx > 0 ? makePost(organizedPosts[postIdx - 1]) : null;
+  const next =
+    postIdx < organizedPosts.length - 1
+      ? makePost(organizedPosts[postIdx + 1])
+      : null;
+
   res.json({
     isSuccess: true,
     message: '게시글 조회 성공',
-    data: makePost(post),
+    data: { prev, post, next },
   });
 });
 
@@ -97,7 +107,7 @@ router.post('/:postId/reply', auth, (req, res) => {
   const { title, content } = req.body;
   const postIdx = Posts.findIndex((post) => post.id === postId);
 
-  // 게시글이 존재여부 확인
+  // 게시글 존재여부 확인
   const isPostExist = postIdx !== -1;
   if (!isPostExist) {
     res.status(404).json({
@@ -134,7 +144,7 @@ router.put('/:id', auth, (req, res) => {
   const updatePost = req.body;
   const postIdx = Posts.findIndex((post) => post.id === id);
 
-  // 게시글이 존재여부 확인
+  // 게시글 존재여부 확인
   const isPostExist = postIdx !== -1;
   if (!isPostExist) {
     res.status(404).json({
@@ -173,7 +183,7 @@ router.put('/:id/view', auth, (req, res) => {
   const { id } = req.params;
   const postIdx = Posts.findIndex((post) => post.id === id);
 
-  // 게시글이 존재여부 확인
+  // 게시글 존재여부 확인
   const isPostExist = postIdx !== -1;
   if (!isPostExist) {
     res.status(404).json({
@@ -203,7 +213,7 @@ router.delete('/:id', auth, (req, res) => {
   const { id } = req.params;
   const postIdx = Posts.findIndex((post) => post.id === id);
 
-  // 게시글이 존재여부 확인
+  // 게시글 존재여부 확인
   const isPostExist = postIdx !== -1;
   if (!isPostExist) {
     res.status(404).json({
@@ -240,7 +250,7 @@ router.put('/:id/like', auth, (req, res) => {
   const loginUserId = req.loginUserId;
   const postIdx = Posts.findIndex((post) => post.id === id);
 
-  // 게시글이 존재여부 확인
+  // 게시글 존재여부 확인
   const isPostExist = postIdx !== -1;
   if (!isPostExist) {
     res.status(404).json({
@@ -277,7 +287,7 @@ router.put('/:id/dislike', auth, (req, res) => {
   const loginUserId = req.loginUserId;
   const postIdx = Posts.findIndex((post) => post.id === id);
 
-  // 게시글이 존재여부 확인
+  // 게시글 존재여부 확인
   const isPostExist = postIdx !== -1;
   if (!isPostExist) {
     res.status(404).json({
