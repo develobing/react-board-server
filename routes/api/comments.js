@@ -3,7 +3,7 @@ import { Comments } from '../../data/comments.js';
 import { Posts } from '../../data/posts.js';
 import { generateRandomId } from '../../utils/common.js';
 import { auth } from '../../middlewares/auth.js';
-import { populateUser } from '../../utils/post.js';
+import { toResponseComment } from '../../utils/comment.js';
 import { Users } from '../../data/users.js';
 
 const router = express.Router();
@@ -12,7 +12,7 @@ const router = express.Router();
 router.get('/my', auth, (req, res) => {
   const userId = req.loginUserId;
   const comments = Comments.filter((comment) => comment.userId === userId).map(
-    populateUser
+    toResponseComment
   );
 
   res.json({
@@ -26,7 +26,7 @@ router.get('/my', auth, (req, res) => {
 router.get('/posts/:postId', auth, (req, res) => {
   const { postId } = req.params;
   const comments = Comments.filter((comment) => comment.postId === postId).map(
-    populateUser
+    toResponseComment
   );
 
   res.json({
@@ -40,7 +40,7 @@ router.get('/posts/:postId', auth, (req, res) => {
 router.post('/posts/:postId', auth, (req, res) => {
   const loginUserId = req.loginUserId;
   const { postId } = req.params;
-  const { content, to } = req.body;
+  const { content, to = null } = req.body;
 
   // 필수 입력값 확인
   if (!postId || !content) {
@@ -77,7 +77,7 @@ router.post('/posts/:postId', auth, (req, res) => {
   res.json({
     isSuccess: true,
     message: '댓글 작성 성공',
-    data: populateUser(newComment),
+    data: toResponseComment(newComment),
   });
 });
 
@@ -86,6 +86,17 @@ router.put('/:id', auth, (req, res) => {
   const loginUserId = req.loginUserId;
   const { id } = req.params;
   const commentIdx = Comments.findIndex((comment) => comment.id === id);
+
+  // 댓글 존재 여부 확인
+  const comment = Comments.find((comment) => comment.id === id);
+  const isCommentExist = comment ? true : false;
+  if (!isCommentExist) {
+    res.status(404).json({
+      isSuccess: false,
+      message: '해당하는 댓글이 없습니다.',
+    });
+    return;
+  }
 
   // 게시글 작성자 확인
   const isCommentOwner = Comments[commentIdx].userId === loginUserId;
@@ -107,17 +118,6 @@ router.put('/:id', auth, (req, res) => {
     return;
   }
 
-  // 댓글 존재 여부 확인
-  const comment = Comments.find((comment) => comment.id === id);
-  const isCommentExist = comment ? true : false;
-  if (!isCommentExist) {
-    res.status(404).json({
-      isSuccess: false,
-      message: '해당하는 댓글이 없습니다.',
-    });
-    return;
-  }
-
   // 댓글 수정
   comment.content = content;
   comment.to = to;
@@ -125,7 +125,7 @@ router.put('/:id', auth, (req, res) => {
   res.json({
     isSuccess: true,
     message: '댓글 수정 성공',
-    data: populateUser(comment),
+    data: toResponseComment(comment),
   });
 });
 

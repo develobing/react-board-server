@@ -7,7 +7,7 @@ const defaultPosts = [
     type: 'post',
     title: 'React.js의 Hook 정리',
     content:
-      'React.js의 여러 Hook을 알아봅시다..\nuseState(), useEffect(), useContext() 등등...\n그 외에도 다양한 Hook들이 있습니다.\n자세한 내용은 React.js 공식 문서를 참고하세요.',
+      'React.js의 여러 Hook을 알아봅시다.\nuseState(), useEffect(), useContext() 등등...\n그 외에도 다양한 Hook들이 있습니다.\n자세한 내용은 React.js 공식 문서를 참고하세요.',
     userId: Users[0].id,
     likes: [],
     dislikes: [],

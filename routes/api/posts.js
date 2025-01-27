@@ -5,7 +5,7 @@ import { auth } from '../../middlewares/auth.js';
 import {
   createNewPost,
   getPageResult,
-  makePost,
+  toResponsePost,
   organizePosts,
 } from '../../utils/post.js';
 
@@ -61,11 +61,11 @@ router.get('/:id', auth, (req, res) => {
   }
 
   // 답글인 경우, 부모글 포함해 return
-  const post = makePost(organizedPosts[postIdx]);
-  const prev = postIdx > 0 ? makePost(organizedPosts[postIdx - 1]) : null;
+  const post = toResponsePost(organizedPosts[postIdx]);
+  const prev = postIdx > 0 ? toResponsePost(organizedPosts[postIdx - 1]) : null;
   const next =
     postIdx < organizedPosts.length - 1
-      ? makePost(organizedPosts[postIdx + 1])
+      ? toResponsePost(organizedPosts[postIdx + 1])
       : null;
 
   res.json({
@@ -96,7 +96,7 @@ router.post('/', auth, (req, res) => {
   res.json({
     isSuccess: true,
     message: '게시글 생성 성공',
-    data: makePost(newPost),
+    data: toResponsePost(newPost),
   });
 });
 
@@ -133,7 +133,7 @@ router.post('/:postId/reply', auth, (req, res) => {
   res.json({
     isSuccess: true,
     message: '답글 생성 성공',
-    data: makePost(newReply),
+    data: toResponsePost(newReply),
   });
 });
 
@@ -174,7 +174,7 @@ router.put('/:id', auth, (req, res) => {
   res.json({
     isSuccess: true,
     message: '게시글 수정 성공',
-    data: makePost(Posts[postIdx]),
+    data: toResponsePost(Posts[postIdx]),
   });
 });
 
@@ -203,7 +203,7 @@ router.put('/:id/view', auth, (req, res) => {
   res.json({
     isSuccess: true,
     message: '게시글 조회수 증가 성공',
-    data: makePost(Posts[postIdx]),
+    data: toResponsePost(Posts[postIdx]),
   });
 });
 
@@ -277,7 +277,7 @@ router.put('/:id/like', auth, (req, res) => {
   res.json({
     isSuccess: true,
     message: '게시글 좋아요 변경 성공',
-    data: makePost(post),
+    data: toResponsePost(post),
   });
 });
 
@@ -314,7 +314,7 @@ router.put('/:id/dislike', auth, (req, res) => {
   res.json({
     isSuccess: true,
     message: '게시글 싫어요 변경 성공',
-    data: makePost(post),
+    data: toResponsePost(post),
   });
 });
 

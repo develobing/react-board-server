@@ -1,6 +1,7 @@
+import _ from 'lodash';
+import { Comments } from '../data/comments.js';
 import { Users } from '../data/users.js';
 import { generateRandomId } from './common.js';
-import _ from 'lodash';
 
 const POST_TYPES = ['title', 'content', 'title_content', 'user'];
 
@@ -72,7 +73,7 @@ export const getPageResult = (items, query) => {
   // 페이징 처리
   const total = items.length;
   const lastPage = Math.ceil(total / size);
-  const posts = items.slice((page - 1) * size, page * size).map(makePost);
+  const posts = items.slice((page - 1) * size, page * size).map(toResponsePost);
   const pagination = { total, size, page, lastPage };
 
   return { posts, pagination };
@@ -104,7 +105,9 @@ export const checkValidPage = (items, query) => {
   return { isValid: true };
 };
 
-export const makePost = (post) => {
+export const toResponsePost = (post) => {
+  const postComments = Comments.filter((comment) => comment.postId === post.id);
+  post.comment = postComments.length;
   return populateUser(post);
 };
 
@@ -122,7 +125,8 @@ export const sortByDate = (items, isAsc = false) =>
 
 export const populateUser = (item) => {
   item = _.cloneDeep(item);
-  const { password, ...user } = Users.find((user) => user.id === item.userId);
+  const targetUser = Users.find((user) => user.id === item.userId);
+  const { password, ...user } = targetUser || {};
   return { ...item, user };
 };
 
