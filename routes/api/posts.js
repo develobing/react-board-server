@@ -150,7 +150,8 @@ router.put('/:id', auth, (req, res) => {
   }
 
   // 게시글 작성자 확인
-  const isPostOwner = Posts[postIdx].userId === loginUserId;
+  const post = Posts[postIdx];
+  const isPostOwner = post.userId === loginUserId;
   if (!isPostOwner) {
     res.status(403).json({
       isSuccess: false,
@@ -161,13 +162,42 @@ router.put('/:id', auth, (req, res) => {
 
   // 게시글 수정
   Posts[postIdx] = {
-    ...Posts[postIdx],
+    ...post,
     ...updatePost,
   };
 
   res.json({
     isSuccess: true,
     message: '게시글 수정 성공',
+    data: makePost(Posts[postIdx]),
+  });
+});
+
+// 게시글 조회수 증가
+router.put('/:id/view', auth, (req, res) => {
+  const { id } = req.params;
+  const postIdx = Posts.findIndex((post) => post.id === id);
+
+  // 게시글이 존재여부 확인
+  const isPostExist = postIdx !== -1;
+  if (!isPostExist) {
+    res.status(404).json({
+      isSuccess: false,
+      message: '해당하는 게시글이 없습니다.',
+    });
+    return;
+  }
+
+  // 게시글 조회수 증가
+  const post = Posts[postIdx];
+  Posts[postIdx] = {
+    ...post,
+    view: post.view + 1,
+  };
+
+  res.json({
+    isSuccess: true,
+    message: '게시글 조회수 증가 성공',
     data: makePost(Posts[postIdx]),
   });
 });
@@ -212,10 +242,20 @@ router.delete('/:id', auth, (req, res) => {
 // 게시글 좋아요
 router.put('/:id/like', auth, (req, res) => {
   const { id } = req.params;
-  const postIdx = Posts.findIndex((post) => post.id === id);
-  const post = Posts[postIdx];
   const loginUserId = req.loginUserId;
+  const postIdx = Posts.findIndex((post) => post.id === id);
 
+  // 게시글이 존재여부 확인
+  const isPostExist = postIdx !== -1;
+  if (!isPostExist) {
+    res.status(404).json({
+      isSuccess: false,
+      message: '해당하는 게시글이 없습니다.',
+    });
+    return;
+  }
+
+  const post = Posts[postIdx];
   const isAlreadyLiked = post.likes.includes(loginUserId);
   const isAlreadyDisliked = post.dislikes.includes(loginUserId);
 
@@ -239,10 +279,20 @@ router.put('/:id/like', auth, (req, res) => {
 // 게시글 싫어요
 router.put('/:id/dislike', auth, (req, res) => {
   const { id } = req.params;
-  const postIdx = Posts.findIndex((post) => post.id === id);
-  const post = Posts[postIdx];
   const loginUserId = req.loginUserId;
+  const postIdx = Posts.findIndex((post) => post.id === id);
 
+  // 게시글이 존재여부 확인
+  const isPostExist = postIdx !== -1;
+  if (!isPostExist) {
+    res.status(404).json({
+      isSuccess: false,
+      message: '해당하는 게시글이 없습니다.',
+    });
+    return;
+  }
+
+  const post = Posts[postIdx];
   const isAlreadyLiked = post.likes.includes(loginUserId);
   const isAlreadyDisliked = post.dislikes.includes(loginUserId);
 

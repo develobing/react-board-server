@@ -132,6 +132,7 @@ export const createNewPost = ({
     likes: [],
     dislikes: [],
     replies: [],
+    view: 0,
     date: new Date().toISOString(),
   };
 };

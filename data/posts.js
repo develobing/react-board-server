@@ -12,6 +12,7 @@ const defaultPosts = [
     likes: [],
     dislikes: [],
     replies: ['reply1'],
+    view: 25,
     postId: null,
     date: new Date('2024-10-07 12:23:55'),
   },
@@ -24,6 +25,7 @@ const defaultPosts = [
     likes: [],
     dislikes: [],
     replies: [],
+    view: 12,
     postId: null,
     date: new Date('2024-10-05 15:37:29'),
   },
@@ -37,6 +39,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 3,
     date: new Date('2024-10-05 12:11:32'),
   },
   {
@@ -49,6 +52,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 5,
     date: new Date('2024-10-05 12:11:32'),
   },
   {
@@ -61,6 +65,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 2,
     date: new Date('2024-10-05 12:11:32'),
   },
   {
@@ -74,6 +79,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 9,
     date: new Date('2024-10-05 12:11:32'),
   },
   {
@@ -87,6 +93,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-10-04 11:53:27'),
   },
   {
@@ -100,6 +107,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-10-03 16:28:53'),
   },
   {
@@ -113,6 +121,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-10-03 13:51:14'),
   },
   {
@@ -126,6 +135,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-10-03 10:29:35'),
   },
   {
@@ -139,6 +149,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-10-02 17:23:52'),
   },
   {
@@ -152,6 +163,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-09-30 14:29:21'),
   },
   {
@@ -165,6 +177,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-09-29 13:51:47'),
   },
   {
@@ -178,6 +191,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-09-27 09:52:33'),
   },
   {
@@ -191,6 +205,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-09-23 19:43:23'),
   },
   {
@@ -204,6 +219,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-09-23 15:27:51'),
   },
   {
@@ -217,6 +233,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-09-21 16:53:42'),
   },
   {
@@ -230,6 +247,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-09-21 10:36:29'),
   },
   {
@@ -243,6 +261,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-09-20 18:45:00'),
   },
   {
@@ -256,6 +275,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-09-19 10:23:00'),
   },
   {
@@ -269,6 +289,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: null,
+    view: 1,
     date: new Date('2024-09-17 15:37:00'),
   },
   {
@@ -282,6 +303,7 @@ const defaultPosts = [
     dislikes: [],
     replies: [],
     postId: 'post1',
+    view: 7,
     date: new Date('2024-10-10 10:35:17'),
   },
 ];
