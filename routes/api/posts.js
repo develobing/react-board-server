@@ -1,12 +1,13 @@
 import express from 'express';
+import _ from 'lodash';
 import { Posts } from '../../data/posts.js';
 import { Users } from '../../data/users.js';
 import { auth } from '../../middlewares/auth.js';
 import {
   createNewPost,
   getPageResult,
-  toResponsePost,
   organizePosts,
+  toResponsePost,
 } from '../../utils/post.js';
 
 const router = express.Router();
@@ -21,6 +22,24 @@ router.get('/', auth, (req, res) => {
   res.json({
     isSuccess,
     message: isSuccess ? '게시글 전체 조회 성공' : error,
+    data: {
+      posts,
+      pagination,
+    },
+  });
+});
+
+// 게시글/답글 최신순 전체 조회
+router.get('/latest', auth, (req, res) => {
+  const sortedLatestPosts = _.cloneDeep(Posts).sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+  const { posts, pagination, error } = getPageResult(sortedLatestPosts, req.query);
+  const isSuccess = !error;
+
+  res.json({
+    isSuccess,
+    message: isSuccess ? '게시글 최신순 조회 성공' : error,
     data: {
       posts,
       pagination,
