@@ -14,7 +14,8 @@ const router = express.Router();
 // 게시글 전체 조회
 router.get('/', auth, (req, res) => {
   const organizedPosts = organizePosts(Posts);
-  const { posts, pagination, error } = getPageResult(organizedPosts, req.query);
+  const validPosts = organizedPosts.filter((post) => !post.isDeleted);
+  const { posts, pagination, error } = getPageResult(validPosts, req.query);
   const isSuccess = !error;
 
   res.json({
@@ -235,8 +236,9 @@ router.delete('/:id', auth, (req, res) => {
     return;
   }
 
-  // 게시글 삭제
-  Posts.splice(postIdx, 1);
+  // 게시글 삭제 - 삭제 처리는 isDeleted 플래그를 사용
+  Posts[postIdx].isDeleted = true;
+  // Posts.splice(postIdx, 1);
 
   res.json({
     isSuccess: true,

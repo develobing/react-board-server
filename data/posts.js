@@ -15,6 +15,7 @@ const defaultPosts = [
     view: 25,
     parentId: null,
     date: new Date('2024-10-07 12:23:55'),
+    isDeleted: false,
   },
   {
     id: 'post2',
@@ -28,6 +29,7 @@ const defaultPosts = [
     view: 12,
     parentId: null,
     date: new Date('2024-10-05 15:37:29'),
+    isDeleted: false,
   },
   {
     id: 'post3',
@@ -41,6 +43,7 @@ const defaultPosts = [
     parentId: null,
     view: 3,
     date: new Date('2024-10-05 12:11:32'),
+    isDeleted: false,
   },
   {
     id: 'post4',
@@ -54,6 +57,7 @@ const defaultPosts = [
     parentId: null,
     view: 5,
     date: new Date('2024-10-05 12:11:32'),
+    isDeleted: false,
   },
   {
     id: 'post5',
@@ -67,6 +71,7 @@ const defaultPosts = [
     parentId: null,
     view: 2,
     date: new Date('2024-10-05 12:11:32'),
+    isDeleted: false,
   },
   {
     id: 'post6',
@@ -81,6 +86,7 @@ const defaultPosts = [
     parentId: null,
     view: 9,
     date: new Date('2024-10-05 12:11:32'),
+    isDeleted: false,
   },
   {
     id: 'paging1',
@@ -95,6 +101,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-10-04 11:53:27'),
+    isDeleted: false,
   },
   {
     id: 'paging2',
@@ -109,6 +116,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-10-03 16:28:53'),
+    isDeleted: false,
   },
   {
     id: 'paging3',
@@ -123,6 +131,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-10-03 13:51:14'),
+    isDeleted: false,
   },
   {
     id: 'paging4',
@@ -137,6 +146,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-10-03 10:29:35'),
+    isDeleted: false,
   },
   {
     id: 'paging5',
@@ -151,6 +161,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-10-02 17:23:52'),
+    isDeleted: false,
   },
   {
     id: 'paging6',
@@ -165,6 +176,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-09-30 14:29:21'),
+    isDeleted: false,
   },
   {
     id: 'paging7',
@@ -179,6 +191,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-09-29 13:51:47'),
+    isDeleted: false,
   },
   {
     id: 'paging8',
@@ -193,6 +206,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-09-27 09:52:33'),
+    isDeleted: false,
   },
   {
     id: 'paging9',
@@ -207,6 +221,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-09-23 19:43:23'),
+    isDeleted: false,
   },
   {
     id: 'paging10',
@@ -221,6 +236,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-09-23 15:27:51'),
+    isDeleted: false,
   },
   {
     id: 'paging11',
@@ -235,6 +251,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-09-21 16:53:42'),
+    isDeleted: false,
   },
   {
     id: 'paging12',
@@ -249,6 +266,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-09-21 10:36:29'),
+    isDeleted: false,
   },
   {
     id: 'paging13',
@@ -263,6 +281,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-09-20 18:45:00'),
+    isDeleted: false,
   },
   {
     id: 'paging14',
@@ -277,6 +296,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-09-19 10:23:00'),
+    isDeleted: false,
   },
   {
     id: 'paging15',
@@ -291,6 +311,7 @@ const defaultPosts = [
     parentId: null,
     view: 1,
     date: new Date('2024-09-17 15:37:00'),
+    isDeleted: false,
   },
   {
     id: 'reply1',
@@ -305,6 +326,7 @@ const defaultPosts = [
     parentId: 'post1',
     view: 7,
     date: new Date('2024-10-10 10:35:17'),
+    isDeleted: false,
   },
   {
     id: 'reply2',
@@ -318,6 +340,7 @@ const defaultPosts = [
     parentId: 'post3',
     view: 7,
     date: new Date('2024-10-12 12:42:51'),
+    isDeleted: false,
   },
   {
     id: 'reply3',
@@ -332,6 +355,7 @@ const defaultPosts = [
     parentId: 'post1',
     view: 7,
     date: new Date('2024-10-12 12:42:51'),
+    isDeleted: false,
   },
 ];
 
