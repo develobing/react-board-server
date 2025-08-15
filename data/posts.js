@@ -1,15 +1,66 @@
 import { Users } from './users.js';
 
+// 특정 User 추출
 const devs = Users.filter((user) => user.id.startsWith('dev'));
+const admin = Users.find((user) => user.role === 'admin');
 const defaultPosts = [
+  {
+    id: 'notice01',
+    type: 'post',
+    board: 'notice',
+    title: 'React Board 오픈',
+    content:
+      '안녕하세요, React Board입니다.\n\nReact Board가 오픈하였습니다!\n\n여러분의 많은 관심과 참여 부탁드립니다.\n감사합니다.',
+    userId: admin.id,
+    likes: [devs[0].id, Users[1].id],
+    dislikes: [],
+    replies: [],
+    view: 73,
+    parentId: null,
+    date: new Date('2024-09-10 11:25:09'),
+    isDeleted: false,
+  },
+  {
+    id: 'notice02',
+    type: 'post',
+    board: 'notice',
+    title: 'React Board 소개',
+    content:
+      '안녕하세요, React Board입니다.\n\nReact Board는 React.js로 개발된 게시판입니다.\n\n사용자 친화적인 UI와 다양한 기능을 제공합니다.\n\n여러분의 많은 관심과 참여 부탁드립니다.',
+    userId: admin.id,
+    likes: [Users[0].id, Users[1].id, Users[2].id],
+    dislikes: [Users[3].id],
+    replies: [],
+    view: 52,
+    parentId: null,
+    date: new Date('2024-09-12 17:19:53'),
+    isDeleted: false,
+  },
+  {
+    id: 'notice03',
+    type: 'post',
+    board: 'notice',
+    title: 'React Board 이용 가이드',
+    content:
+      '안녕하세요, React Board입니다.\n\nReact Board 이용자 가이드를 작성하였습니다.\n\n게시판 이용 시 참고하시기 바랍니다.\n감사합니다.',
+    userId: admin.id,
+    likes: [devs[1].id, Users[2].id],
+    dislikes: [],
+    replies: [],
+    view: 36,
+    parentId: null,
+    date: new Date('2024-09-15 15:31:42'),
+    isDeleted: false,
+  },
   {
     id: 'post1',
     type: 'post',
+    board: 'free',
     title: 'React.js의 Hook 정리',
     content:
       'React.js의 여러 Hook을 알아봅시다.\nuseState(), useEffect(), useContext() 등등...\n그 외에도 다양한 Hook들이 있습니다.\n자세한 내용은 React.js 공식 문서를 참고하세요.',
     userId: Users[0].id,
-    likes: [],
+    likes: [Users[1].id, Users[2].id],
     dislikes: [],
     replies: ['reply1', 'reply3'],
     view: 25,
@@ -20,10 +71,11 @@ const defaultPosts = [
   {
     id: 'post2',
     type: 'post',
+    board: 'free',
     title: 'React.js 프로젝트 시작하기',
     content: 'React.js 프로젝트를 시작해봅시다!\nReact.js 화이팅!',
     userId: Users[1].id,
-    likes: [],
+    likes: [Users[0].id],
     dislikes: [],
     replies: [],
     view: 12,
@@ -34,6 +86,7 @@ const defaultPosts = [
   {
     id: 'post3',
     type: 'post',
+    board: 'free',
     title: '가입 인사',
     content: '안녕하세요.\n반갑습니다.\n저는 새로운 회원입니다.',
     userId: Users[2].id,
@@ -48,6 +101,7 @@ const defaultPosts = [
   {
     id: 'post4',
     type: 'post',
+    board: 'free',
     title: '첫 번째 개발자 - React.js',
     content: '첫 번째 개발자 게시글 입니다.\nReact.js를 공부 중 입니다.',
     userId: devs[0].id,
@@ -62,6 +116,7 @@ const defaultPosts = [
   {
     id: 'post5',
     type: 'post',
+    board: 'free',
     title: '첫 번째 개발자 - Node.js',
     content: '첫 번째 개발자 게시글 입니다.\nNode.js를 공부 중 입니다.',
     userId: devs[0].id,
@@ -76,6 +131,7 @@ const defaultPosts = [
   {
     id: 'post6',
     type: 'post',
+    board: 'free',
     title: '두 번째 개발자 - React.js, Node.js',
     content:
       '두 번째 개발자 게시글 입니다.\nReact.js, Node.js를 공부 중 입니다.',
@@ -91,6 +147,7 @@ const defaultPosts = [
   {
     id: 'paging1',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 1',
     content:
       '테스트 게시글 입니다.\n1번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -106,6 +163,7 @@ const defaultPosts = [
   {
     id: 'paging2',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 2',
     content:
       '테스트 게시글 입니다.\n2번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -121,6 +179,7 @@ const defaultPosts = [
   {
     id: 'paging3',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 3',
     content:
       '테스트 게시글 입니다.\n3번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -136,6 +195,7 @@ const defaultPosts = [
   {
     id: 'paging4',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 4',
     content:
       '테스트 게시글 입니다.\n4번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -151,6 +211,7 @@ const defaultPosts = [
   {
     id: 'paging5',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 5',
     content:
       '테스트 게시글 입니다.\n5번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -166,6 +227,7 @@ const defaultPosts = [
   {
     id: 'paging6',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 6',
     content:
       '테스트 게시글 입니다.\n6번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -181,6 +243,7 @@ const defaultPosts = [
   {
     id: 'paging7',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 7',
     content:
       '테스트 게시글 입니다.\n7번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -196,6 +259,7 @@ const defaultPosts = [
   {
     id: 'paging8',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 8',
     content:
       '테스트 게시글 입니다.\n8번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -211,6 +275,7 @@ const defaultPosts = [
   {
     id: 'paging9',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 9',
     content:
       '테스트 게시글 입니다.\n9번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -226,6 +291,7 @@ const defaultPosts = [
   {
     id: 'paging10',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 10',
     content:
       '테스트 게시글 입니다.\n10번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -241,6 +307,7 @@ const defaultPosts = [
   {
     id: 'paging11',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 11',
     content:
       '테스트 게시글 입니다.\n11번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -256,6 +323,7 @@ const defaultPosts = [
   {
     id: 'paging12',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 12',
     content:
       '테스트 게시글 입니다.\n12번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -271,6 +339,7 @@ const defaultPosts = [
   {
     id: 'paging13',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 13',
     content:
       '테스트 게시글 입니다.\n13번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -286,6 +355,7 @@ const defaultPosts = [
   {
     id: 'paging14',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 14',
     content:
       '테스트 게시글 입니다.\n14번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -301,6 +371,7 @@ const defaultPosts = [
   {
     id: 'paging15',
     type: 'post',
+    board: 'free',
     title: '페이징 테스트 게시글 - 15',
     content:
       '테스트 게시글 입니다.\n15번째 게시글 입니다.\n게시판 페이징을 위해 작성되었습니다.',
@@ -316,6 +387,7 @@ const defaultPosts = [
   {
     id: 'reply1',
     type: 'reply',
+    board: 'free',
     title: 'React.js의 useState()에 대해 질문',
     content:
       'React.js의 Hook 중에서 useState()에 대해 궁금합니다.\nuseState()는 어떻게 사용하는 것인가요?',
@@ -331,6 +403,7 @@ const defaultPosts = [
   {
     id: 'reply2',
     type: 'reply',
+    board: 'free',
     title: '저도 새로운 회원입니다.',
     content: '저도 새로 가입하였습니다.\n잘 부탁드립니다.\n감사합니다!',
     userId: Users[0].id,
@@ -345,6 +418,7 @@ const defaultPosts = [
   {
     id: 'reply3',
     type: 'reply',
+    board: 'free',
     title: 'useEffect()에 관한 질문',
     content:
       'React.js의 Hook 중에서 useEffect()에 대해 궁금합니다.\nuseEffect()는 어떻게 사용하는 것인가요?',
