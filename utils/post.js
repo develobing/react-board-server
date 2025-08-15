@@ -149,6 +149,7 @@ export const createNewPost = ({
     replies: [],
     view: 0,
     date: new Date().toISOString(),
+    isDeleted: false,
   };
 };
 
