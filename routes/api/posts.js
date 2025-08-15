@@ -34,7 +34,10 @@ router.get('/latest', auth, (req, res) => {
   const sortedLatestPosts = _.cloneDeep(Posts).sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
-  const { posts, pagination, error } = getPageResult(sortedLatestPosts, req.query);
+  const { posts, pagination, error } = getPageResult(
+    sortedLatestPosts,
+    req.query
+  );
   const isSuccess = !error;
 
   res.json({
