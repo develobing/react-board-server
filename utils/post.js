@@ -33,13 +33,12 @@ export const organizePosts = (posts, ownerId = null) => {
 export const getPageResult = (items, query) => {
   // board: 'notice', 'free', 'qna' ...
   // type: title, content, title_content, user
-  const {board, type = 'title', keyword, page = 1, size = 10 } = query;
+  const { board, type = 'title', keyword, page = 1, size = 10 } = query;
 
   // board 필터링
   if (board) {
     items = items.filter((item) => item.board === board);
   }
-
 
   // 검색어 확인
   const isTypeValid = POST_TYPES.includes(type);

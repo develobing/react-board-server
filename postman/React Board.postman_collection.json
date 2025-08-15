@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "92e0db57-1d63-4ee0-8c85-154a866c5158",
+    "_postman_id": "f894dc9a-4742-4bf2-a5d0-a764aa2dfa06",
     "name": "React Board",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "41540052"
+    "_exporter_id": "40860664"
   },
   "item": [
     {
@@ -169,7 +169,7 @@
       "name": "게시판",
       "item": [
         {
-          "name": "게시글 목록 조회",
+          "name": "전체 게시글 목록 조회",
           "event": [
             {
               "listen": "test",
@@ -217,6 +217,123 @@
                   "key": "keyword",
                   "value": "react",
                   "description": "검색어"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "자유게시판 게시글 목록 조회",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_HOST}}/api/posts?board=free&page=1&size=10&type=title&keyword=react",
+              "host": ["{{API_HOST}}"],
+              "path": ["api", "posts"],
+              "query": [
+                {
+                  "key": "board",
+                  "value": "free"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "페이지 번호"
+                },
+                {
+                  "key": "size",
+                  "value": "10",
+                  "description": "한 번에 조회할 개수"
+                },
+                {
+                  "key": "type",
+                  "value": "title",
+                  "description": "title, content, title_content, user"
+                },
+                {
+                  "key": "keyword",
+                  "value": "react",
+                  "description": "검색어"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "공지사항 게시글 목록 조회",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_HOST}}/api/posts?board=notice&page=1&size=10&type=title&keyword=react",
+              "host": ["{{API_HOST}}"],
+              "path": ["api", "posts"],
+              "query": [
+                {
+                  "key": "board",
+                  "value": "notice"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "페이지 번호"
+                },
+                {
+                  "key": "size",
+                  "value": "10",
+                  "description": "한 번에 조회할 개수"
+                },
+                {
+                  "key": "type",
+                  "value": "title",
+                  "description": "title, content, title_content, user"
+                },
+                {
+                  "key": "keyword",
+                  "value": "react"
                 }
               ]
             }
