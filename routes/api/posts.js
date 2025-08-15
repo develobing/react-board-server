@@ -83,7 +83,7 @@ router.get('/:id', auth, (req, res) => {
     return;
   }
 
-  // 답글인 경우, 부모글 포함해 return
+  // 이전/다음글 포함해 return
   const post = toResponsePost(organizedPosts[postIdx]);
   const prev = postIdx > 0 ? toResponsePost(organizedPosts[postIdx - 1]) : null;
   const next =
